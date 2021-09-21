@@ -32,7 +32,8 @@ var PDFAnnotate = function(container_id, url, options = {}) {
 	    for (var i = 1; i <= pdf.numPages; i++) {
 	        pdf.getPage(i).then(function (page) {
 				if (typeof inst.format === 'undefined' ||
-					typeof inst.orientation === 'undefined') {
+					typeof inst.orientation === 'undefined'
+				) {
 					var originalViewport = page.getViewport({ scale: 1 });
 					inst.format = [originalViewport.width, originalViewport.height];
 					inst.orientation =
@@ -59,7 +60,9 @@ var PDFAnnotate = function(container_id, url, options = {}) {
 	                    $(el).attr('id', 'page-' + (index + 1) + '-canvas');
 	                });
 	                inst.pages_rendered++;
-	                if (inst.pages_rendered == inst.number_of_pages) inst.initFabric();
+	                if (inst.pages_rendered == inst.number_of_pages) {
+						inst.initFabric();
+					}
 	            });
 	        });
 	    }
@@ -212,9 +215,10 @@ PDFAnnotate.prototype.addImageToCanvas = function () {
 PDFAnnotate.prototype.deleteSelectedObject = function () {
 	var inst = this;
 	var activeObject = inst.fabricObjects[inst.active_canvas].getActiveObject();
-	if (activeObject)
-	{
-	    if (confirm('Are you sure ?')) inst.fabricObjects[inst.active_canvas].remove(activeObject);
+	if (activeObject) {
+	    if (confirm('Are you sure ?')) {
+			inst.fabricObjects[inst.active_canvas].remove(activeObject);
+		}
 	}
 }
 
@@ -269,8 +273,7 @@ PDFAnnotate.prototype.setColor = function (color) {
 }
 
 PDFAnnotate.prototype.setBorderColor = function (color) {
-	var inst = this;
-	inst.borderColor = color;
+	this.borderColor = color;
 }
 
 PDFAnnotate.prototype.setFontSize = function (size) {
@@ -321,7 +324,8 @@ PDFAnnotate.prototype.loadFromJSON = function(jsonData) {
 	}
 	if (typeof page_setup === 'object' && 
 		typeof page_setup.format === 'string' &&
-		typeof page_setup.orientation === 'string') {
+		typeof page_setup.orientation === 'string'
+	) {
 		inst.format = page_setup.format;
 		inst.orientation = page_setup.orientation;
 	}
